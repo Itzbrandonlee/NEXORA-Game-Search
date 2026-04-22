@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct NEXORAApp: App {
+    @State private var isLoggedIn: Bool = false
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if isLoggedIn {
+                HomeView()
+            } else {
+                LoginView(isLoggedIn: $isLoggedIn)
+            }
         }
     }
 }

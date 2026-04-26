@@ -9,36 +9,58 @@ enum Genre: String {
     case shooter = "Shooter"
 }
 
-//game data model
-struct Game: Identifiable {
-    var id: Int
-    var name: String
-    var description: String
-    var released: String
-    var background_image: String?
-    var rating: Double
-    var genres: [String]
-    var platforms: [String]
-    var developers: [String]
-    var publishers: [String]
+//RAWG API nested structures
+struct GenreObject: Codable {
+    let id: Int
+    let name: String
 }
 
-//converts arrays into a single string for display
+struct PlatformWrapper: Codable {
+    let platform: PlatformObject
+}
+
+struct PlatformObject: Codable {
+    let id: Int
+    let name: String
+}
+
+
+
+
+//game data model
+struct Game: Identifiable, Codable {
+    var id: Int
+    var name: String
+    var released: String?
+    var background_image: String?
+    var rating: Double
+    var genres: [GenreObject]
+    var platforms: [PlatformWrapper]
+    var developers: [String]?
+    var publishers: [String]?
+}
+
+//converts arrays into a string for UI display
 extension Game {
     var genreText: String {
-        return genres.joined(separator: ", ")
+        genres.map { $0.name }.joined(separator: ", ")
     }
     var platformText: String {
-        return platforms.joined(separator: ", ")
+        platforms.map { $0.platform.name }.joined(separator: ", ")
     }
     var developerText: String {
-        return developers.joined(separator: ", ")
+        developers?.joined(separator: ", ") ?? "N/A"
     }
     var publisherText: String {
-        return publishers.joined(separator: ", ")
+        publishers?.joined(separator: ", ") ?? "N/A"
     }
 }
-    
+
+
+struct GameListResponse: Codable {
+    let count: Int
+    let results: [Game]
+}
     
     
     

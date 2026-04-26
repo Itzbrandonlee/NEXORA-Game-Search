@@ -24,9 +24,6 @@ struct PlatformObject: Codable {
     let name: String
 }
 
-
-
-
 //game data model
 struct Game: Identifiable, Codable {
     var id: Int
@@ -56,13 +53,14 @@ extension Game {
     }
 }
 
-
 struct GameListResponse: Codable {
     let count: Int
     let results: [Game]
 }
     
-    
+struct GameResponse: Decodable {
+    let results: [Game]
+}
     
     
 

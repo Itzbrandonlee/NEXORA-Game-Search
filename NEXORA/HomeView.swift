@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var searchText = ""
+    @StateObject var viewModel = GameViewModel()
     
     var body: some View {
         NavigationView {
@@ -25,6 +26,14 @@ struct HomeView: View {
                         .cornerRadius(10)
                         .padding(.horizontal)
                     Spacer()
+                    
+                    //Testing API... Displays lis of games
+                    List(viewModel.games) { game in
+                        Text(game.name)
+                    }
+                    .onAppear {
+                        viewModel.fetchGames()
+                    }
                     
                 }
                 //.navigationTitle("Home page")

@@ -15,7 +15,7 @@ struct Game: Identifiable {
     var name: String
     var description: String
     var released: String
-    var imageURL: String
+    var background_image: String?
     var rating: Double
     var genres: [String]
     var platforms: [String]

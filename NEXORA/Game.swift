@@ -9,11 +9,9 @@ enum Genre: String {
     case shooter = "Shooter"
 }
 
-
 //game data model
 struct Game: Identifiable {
     var id: Int
-    
     var name: String
     var description: String
     var released: String

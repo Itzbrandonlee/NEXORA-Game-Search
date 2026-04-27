@@ -2,7 +2,15 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var searchText = ""
+    @State private var selectedSort: String = "Rating: High to Low"
     @StateObject var viewModel = GameViewModel()
+    
+    var sortOptions: [String: String] = ["Rating: High to Low": "-rating",
+                                                        "Rating: Low to High": "rating",
+                                                        "Alphabetical: A-Z": "name",
+                                                        "Alphabetical: Z-A": "-name",
+                                                        "Release Date: Oldest to Newest": "released",
+                                                        "Release Date: Newest to Oldest": "-released"]
 
     var body: some View {
         NavigationStack {
@@ -30,12 +38,20 @@ struct HomeView: View {
                         .onSubmit {
                             print("search text submitted")
                             if !searchText.isEmpty {
-                                viewModel.fetchGames(searchText: searchText)
+                                viewModel.fetchGames(searchText: searchText, sortOrder: sortOptions[selectedSort]!)
+                            } else {
+                                viewModel.fetchGames(searchText: nil, sortOrder: sortOptions[selectedSort]!)
                             }
                             searchText=""
                         }
-                    Spacer()
                     
+                    Picker("Sort by:", selection: $selectedSort) {
+                        ForEach(sortOptions.keys.sorted(), id: \.self) { order in
+                            Text(order)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .accentColor(Color.white)
 
                     //GameCard List from search
                     ScrollView{
@@ -52,7 +68,7 @@ struct HomeView: View {
                     .padding(.horizontal)
                     .padding(.bottom, 20)
                     .onAppear {
-                        viewModel.fetchGames(searchText: nil)
+                        viewModel.fetchGames(searchText: nil, sortOrder: sortOptions[selectedSort]!)
                     }
                 }
             }

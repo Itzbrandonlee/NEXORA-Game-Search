@@ -5,9 +5,10 @@ class GameViewModel: ObservableObject {
     @Published var games: [Game] = []
     private let apiKey = "1630b9dccd12423da5a55b02f95add1a"
 
-    func fetchGames(searchText: String!) {
+    func fetchGames(searchText: String!, sortOrder: String) {
         let searchInput = (searchText != nil) ? "&search_precise=true&search=\(searchText)" : ""
-        let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKey)&ordering=-rating" + searchInput)!
+        let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKey)&ordering=\(sortOrder)" + searchInput)!
+        print(url)
         
         URLSession.shared.dataTask(with: url) { data, _, error in
             if let data = data {

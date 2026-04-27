@@ -13,7 +13,7 @@ struct GameCard: View {
                                 Color.white.opacity(0.1)
                                     .overlay(Image(systemName: "exclamationmark.triangle").foregroundColor(.gray))
                             } else {
-                                ProgressView() // Spinner while loading
+                                ProgressView() 
                             }
                         }
                         .frame(width: 60, height: 80)

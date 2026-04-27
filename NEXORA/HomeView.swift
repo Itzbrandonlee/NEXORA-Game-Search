@@ -5,19 +5,21 @@ struct HomeView: View {
     @StateObject var viewModel = GameViewModel()
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 LinearGradient(colors: [Color("NexoraBlue"), Color("NexoraPurple")],
                                startPoint: .topLeading,
                                endPoint: .bottomTrailing)
                 .ignoresSafeArea()
                 
-                VStack {
+                VStack (spacing: 20){
                     Text("Welcome to Nexora!")
                         .font(.largeTitle)
                         .bold()
-                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
                         .foregroundColor(.white)
+                    
                     //Search Bar
                     TextField("Search Games...", text: $searchText)
                         .padding()
@@ -25,15 +27,17 @@ struct HomeView: View {
                         .opacity(0.6)
                         .cornerRadius(10)
                         .padding(.horizontal)
-                    Spacer()
-                    
 
-                    
                     //GameCard List from search
                     ScrollView{
                         VStack(spacing: 12){
                             ForEach(viewModel.games) { game in
-                                GameCard(game: game)}
+                                NavigationLink(destination: GameDetailView(game: game)){
+                                    GameCard(game: game)
+                                }
+                                .buttonStyle(.plain)
+                            }
+                            
                         }
                     }
                     .padding(.horizontal)
@@ -41,13 +45,10 @@ struct HomeView: View {
                     .onAppear {
                         viewModel.fetchGames()
                     }
-                    
-
                 }
-                
             }
-            .padding(.top, 10)
-            
+
+            .toolbar(.hidden, for: .navigationBar)
         }
     }
 }

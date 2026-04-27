@@ -29,14 +29,15 @@ struct HomeView: View {
                         .foregroundColor(.white)
                     
                     //Search Bar
-                    TextField("Search Games...", text: $searchText)
+                    TextField("", text: $searchText, prompt: Text("Search Games...")
+                        .foregroundColor(.black.opacity(0.7)))
+                        .accentColor(.black.opacity(0.7))
                         .padding()
                         .background(Color(.white))
                         .opacity(0.6)
                         .cornerRadius(10)
                         .padding(.horizontal)
                         .onSubmit {
-                            print("search text submitted")
                             if !searchText.isEmpty {
                                 viewModel.fetchGames(searchText: searchText, sortOrder: sortOptions[selectedSort]!)
                             } else {

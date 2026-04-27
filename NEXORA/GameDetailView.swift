@@ -21,7 +21,7 @@ struct GameDetailView: View {
                                 ProgressView()
                             }
                         }
-                        .frame(height: 350)
+                        .frame(maxWidth: .infinity)
                         .clipped()
                         
                         LinearGradient (colors: [.clear, Color("NexoraBlue")],
@@ -62,9 +62,9 @@ struct GameDetailView: View {
                                         .padding(.horizontal, 12)
                                         .padding(.vertical, 6)
                                         .background(Color("NexoraPurple").opacity(0.3))
-                                        .foregroundColor(Color("NexoraPurple").opacity(0.9))
+                                        .foregroundColor(Color.white.opacity(0.6))
                                         .overlay(
-                                            Capsule().stroke(Color("NexoraPurple").opacity(0.5), lineWidth: 1)
+                                            Capsule().stroke(Color("NexoraPurple"), lineWidth: 1)
                                         )
                                         .clipShape(Capsule())
                                 }

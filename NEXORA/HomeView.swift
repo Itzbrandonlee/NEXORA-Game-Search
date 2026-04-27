@@ -27,6 +27,15 @@ struct HomeView: View {
                         .opacity(0.6)
                         .cornerRadius(10)
                         .padding(.horizontal)
+                        .onSubmit {
+                            print("search text submitted")
+                            if !searchText.isEmpty {
+                                viewModel.fetchGames(searchText: searchText)
+                            }
+                            searchText=""
+                        }
+                    Spacer()
+                    
 
                     //GameCard List from search
                     ScrollView{
@@ -43,7 +52,7 @@ struct HomeView: View {
                     .padding(.horizontal)
                     .padding(.bottom, 20)
                     .onAppear {
-                        viewModel.fetchGames()
+                        viewModel.fetchGames(searchText: nil)
                     }
                 }
             }

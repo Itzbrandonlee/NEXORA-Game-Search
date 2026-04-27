@@ -2,6 +2,8 @@ import SwiftUI
 
 struct GameDetailView: View {
     let game: Game
+    @State private var isFavorite = false
+    
     var body: some View {
         ZStack {
             Color("NexoraBlue").ignoresSafeArea()
@@ -88,6 +90,42 @@ struct GameDetailView: View {
                             RoundedRectangle(cornerRadius: 16)
                                 .stroke(Color.white.opacity(0.1), lineWidth: 1)
                         )
+                        
+                        // Add to Favorites button
+                        Button(action: {
+                            isFavorite.toggle()
+                        }) {
+                            HStack(spacing: 10) {
+                                Text(isFavorite ? "ADDED TO FAVORITES" : "ADD TO FAVORITES")
+                                    .font(.headline)
+                                    .tracking(1.2)
+                                Image(systemName: isFavorite ? "heart.fill" : "heart")
+                                    .foregroundColor(isFavorite ? Color("NexoraRed") : .white)
+                            }
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
+                            .background(
+                                isFavorite
+                                ? AnyShapeStyle(Color("NexoraPurple"))
+                                : AnyShapeStyle(Color.white.opacity(0.05))
+                            )
+                            .cornerRadius(14)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 14)
+                                    .stroke(
+                                        LinearGradient(
+                                            colors: [Color("NexoraBlue"), Color("NexoraPurple")],
+                                            startPoint: .leading,
+                                            endPoint: .trailing
+                                        ),
+                                        lineWidth: 2
+                                    )
+                            )
+                        }
+                        .padding(.top, 8)
+                        
+                        
                     }
                     .padding(.horizontal, 20)
                     .offset(y: -20)

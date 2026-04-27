@@ -2,9 +2,10 @@ import SwiftUI
 
 struct GameDetailView: View {
     let game: Game
-    @State private var isFavorite = false
+    @EnvironmentObject var gameFavorites: GameFavorites
     
     var body: some View {
+        let isFavorite = gameFavorites.isFavorite (game: game)
         ZStack {
             Color("NexoraBlue").ignoresSafeArea()
             
@@ -93,7 +94,7 @@ struct GameDetailView: View {
                         
                         // Add to Favorites button
                         Button(action: {
-                            isFavorite.toggle()
+                            gameFavorites.toggleFavorite(game: game)
                         }) {
                             HStack(spacing: 10) {
                                 Text(isFavorite ? "ADDED TO FAVORITES" : "ADD TO FAVORITES")

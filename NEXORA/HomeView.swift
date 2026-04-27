@@ -74,7 +74,12 @@ struct HomeView: View {
                 }
             }
 
-            .toolbar(.hidden, for: .navigationBar)
+            .toolbar {
+                NavigationLink(destination: FavoritesView()) {
+                        Image(systemName: "heart.fill")
+                            .foregroundColor(.white)
+                    }
+            }
         }
     }
 }

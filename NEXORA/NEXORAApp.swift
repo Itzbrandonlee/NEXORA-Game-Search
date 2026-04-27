@@ -10,10 +10,11 @@ import SwiftUI
 @main
 struct NEXORAApp: App {
     @State private var isLoggedIn: Bool = false
+    @StateObject var gameFavorites = GameFavorites()
     var body: some Scene {
         WindowGroup {
             if isLoggedIn {
-                HomeView()
+                HomeView().environmentObject(gameFavorites)
             } else {
                 LoginView(isLoggedIn: $isLoggedIn)
             }
